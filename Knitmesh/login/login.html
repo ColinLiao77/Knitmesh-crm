@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+		
+		
+			body,.mui-content {
+				
+				background: white;
+			}
+			.mui-icon.mui-icon-left-nav {
+				
+				color: gray;
+			}
+			
+		
+			.mui-input-group:first-child {
+				margin-top: 3em;
+			}
+			.mui-input-group label {
+				width: 22%;
+			}
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+			
+			.mui-input-group {
+				
+				margin-top: 0px;
+			}
+			
+			.mui-input-group:before, .mui-input-group:after {
+				
+				height: 0px;
+			}
+			
+			.mui-content-padded {
+				
+				padding: 10px;
+			}
+			
+			.mui-btn-block {
+				
+				padding: 5px;
+			}
+			
+		</style>
+
+	</head>
+
+	<body>
+		
+		<div class="mui-content">
+			<form  class="mui-input-group">
+				<div class="mui-input-row">
+					<label>账号</label>
+					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入手机号" value="15882216368">
+				</div>
+			</form>
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>密码</label>
+					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码" value="123456">
+				</div>
+			</form>
+			
+			<div class="mui-content-padded">
+				<button class="mui-btn mui-btn-block mui-btn-primary" onclick="clickLoginIn()">登录</button>
+				<div class="link-area"><a href="forgetPass">忘记密码</a>
+				</div>
+			</div>
+		</div>
+		
+
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/own.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../js/localStorage.js" ></script>
+		<script type="text/javascript" charset="UTF-8">
+			mui.init();
+		    mui.plusReady(function(){
+		      		
+		    		mui('.mui-content-padded').on('tap','a',function(){
+		    			
+		    			
+					var extendOptions = {};
+					pushWebView({
+						webType:'newWebview_First',
+						id:'login/forgetPass-needtem.html',
+						href:'login/forgetPass-needtem.html',
+						aniShow:getaniShow(),
+						title:'忘记密码',
+						isBars:false,
+						barsIcon:'',
+						extendOptions:extendOptions
+					});
+		    		});
+		    });
+		    
+		    function clickLoginIn(){
+		    	
+		    	
+		    		var account = document.getElementById('account').value;
+		    		var password = document.getElementById('password').value;
+		    		
+		    		if (account == '' || password == '') {
+		    			
+		    			plus.nativeUI.alert('账号和密码都不能为空');
+		    			return;
+		    		}
+		    		
+		    		var options = {
+					loginkey:account,
+					password:password
+				}
+				
+				loginIn(options,function success(data){
+					
+					mui.back();
+					
+					
+					localSave(JSON.stringify(data['data']));
+					var mineWeb = plus.webview.getWebviewById('barItem/barMine.html');
+					mui.fire(mineWeb,'loginIn','');
+				
+				},function error(error){
+					
+				});
+		    }
+		</script>
+
+	</body>
+
+</html>

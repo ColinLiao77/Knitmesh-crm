@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>父子模版</title>
+    <link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+   	<link rel="stylesheet" type="text/css" href="../css/own.css"/>
+   	<link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+    
+    <style type="text/css">
+    
+    
+    .mui-table-view {
+    		margin-bottom: 20px;
+    }
+    
+    
+    /*头*/
+    .headTable .mui-table-view-cell:after {
+    		
+    		height: 0px;
+    	}
+    	
+    	.headTable {
+    		
+    		background: #f8f8f8;
+    	}
+    
+    .mineHead .mui-media-object {
+    	
+    		height: 4em;
+    		max-width: 4em;
+    		border-radius: 5em;
+    }
+    
+  
+    	.mineHead .mui-media-body {
+    		/*background-color: red;*/
+    		font-size: 20px;
+    		margin-top: 0.5em;
+    	}
+
+    	
+    
+    	
+    	.mineHeadList .mui-media-body {
+    		
+    		font-size: 14px;
+    		
+    	}
+    	.mineHeadList .mui-media-body p {
+    		
+    		color:#4b4b4b;
+    		font-size: 10px;
+    	}
+    	
+    	
+    	.down span {
+    		
+    		font-size: 12px;
+    		color: #a1a0a6;
+    	}
+    	
+    	.mui-media-body input {
+   		float: right;
+   		border-radius: 8px; 
+   		color: grey;
+   		font-size: 0.6em;
+   		padding: 0.5em 1.4em 0.4em;
+   	}
+    	
+    	    	
+    	/*内容*/
+    	.conentList .mui-table-view-cell:after {
+    		
+    		left: 0px;
+    	}
+    	
+    	.rotate {
+		-ms-transform: rotate(180deg);
+		/* IE 9 */
+		-moz-transform: rotate(180deg);
+		/* Firefox */
+		-webkit-transform: rotate(180deg);
+		/* Safari and Chrome */
+		-o-transform: rotate(180deg);
+		/* Opera */
+	}
+	
+			
+    </style>
+    
+</head>
+<body>
+	
+	
+	<div class="mui-content">
+		
+		<ul class="mui-table-view headTable" style="padding-bottom: 2px;margin: 0px;">
+			<li class="mui-table-view-cell mui-media mineHead">
+				<a class="mui-navigate-right" id = 'headInfo'>
+					<img class="mui-media-object mui-pull-left" src="../img/3.jpg" />
+					<div class="mui-media-body" id="loginName">
+						未登录
+						<!--Lenny-->
+						<p class="mui-ellipsis">
+							点击登录
+							<!--<span class="mui-icon mui-icon-compose"></span>
+							编辑-->
+						</p>
+					</div>
+				</a>
+			</li>
+			<li class="mui-table-view-cell mui-media mineHeadList">
+				<a>
+					<span class="mui-media-object mui-pull-left mui-icon iconfont icon-gongzuo"></span>
+					<div class="mui-media-body">
+						开打，开打，超神！
+						<input type="button" value="完成"  style="float: right;"/>
+						<p class="mui-ellipsis">
+							奎哥每天都要超神！奎哥每天都要超神！ 奎哥每天都要超神！奎哥每天都要超神！
+						</p>
+					</div>
+				</a>
+			</li>
+			<li class="mui-table-view-cell mui-media mineHeadList">
+				<a>
+					<span class="mui-media-object mui-pull-left mui-icon iconfont icon-gongzuo"></span>
+					<div class="mui-media-body">
+						开打，开打，超神！
+						<input type="button" value="完成"  style="float: right;"/>
+						<p class="mui-ellipsis">
+							奎哥每天都要超神！奎哥每天都要超神！ 奎哥每天都要超神！奎哥每天都要超神！
+						</p>
+					</div>
+				</a>
+			</li>
+			<p style="text-align: center;">
+				<a class="down">
+					<span class="mui-icon iconfont icon-icoxiashuangjiantou"></span>
+				</a>
+			</p>
+		</ul>
+		<ul class="mui-table-view conentList">
+			<li class="mui-table-view-cell" id="contact">
+				<a href="mine/contact-needtem.html">
+					<span class="mui-icon mui-icon-person"></span>通讯录
+				</a>
+			</li>
+		</ul>
+		<ul class="mui-table-view setting ">
+			<li class="mui-table-view-cell">
+				<a href="mine/setting-needtem.html" class="mui-navigate-right">
+					<span class="mui-icon iconfont icon-shezhi"></span>
+					设置
+				</a>
+			</li>
+		</ul>
+	</div>
+	
+	<script src="../js/mui.min.js" charset="UTF-8"></script>
+	<script src="../js/own.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="../js/ajax.js" ></script>
+	<script type="text/javascript" src="../js/localStorage.js" ></script>
+	<script type="text/javascript" charset="UTF-8">
+		mui.init({
+			swipeBack:false
+		});
+		
+		var isShow = false;
+		var loginInfo = localGet();
+		
+		function isLogin() {
+				
+			if (loginInfo) {
+				
+				console.log('sfsfsf');
+				addHeaderView(isShow);
+				
+			}else {
+					
+				console.log('no');
+			}
+		}
+		
+		mui.plusReady(function(){
+			
+			isLogin();
+			
+			addContentListView();
+			document.addEventListener('loginIn',function(){
+				
+				isLogin();
+				console.log();
+			});
+			
+			alert('2222');
+			//点击tap跳入通讯录
+			document.getElementById('contact').addEventListener('tap',function(){
+				alert('222');
+			},false);
+			
+			
+			mui('.mui-table-view').on('tap','a',function(){
+				alert('2222');
+				if(this.classList.contains('down')) {
+					
+					isShow = ~isShow;
+					addHeaderView(isShow);
+				}else if (this.id == 'headInfo') {
+					
+					var login = plus.webview.create('../login/login-F.html','../login/login-F.html',{scrollIndicator:'none',scalable:false,popGesture:'none'},{preate:true});
+					login.show('slide-in-bottom');
+				}
+				else {
+					var a = this;
+					var href = a.getAttribute('href');
+					var extendOptions = {};
+					pushWebView({
+						webType:'newWebview_First',
+						id:href,
+						href:href,
+						aniShow:getaniShow(),
+						title:a.innerText,
+						isBars:false,
+						barsIcon:'',
+						extendOptions:extendOptions
+					});
+				}
+			});
+		});
+		
+		
+		function addHeaderView(isShow) {
+			
+			var headTable = document.getElementsByClassName('headTable')[0];
+			var headListColors = ['#66b7f8','#ed968d'];
+			var htmlStr = '';
+			
+			var noLogin = '未登录';
+			
+			noLogin += '<p class="mui-ellipsis">' +
+							'点击登录' +
+						'</p>';			
+			
+			var login = 'Lenny';
+			login += '' +
+						'<p class="mui-ellipsis">' +
+							'<span class="mui-icon mui-icon-compose"></span>' +
+								'编辑'+
+						'</p>';
+			
+			var headerInfo = noLogin;
+			if (0) {
+				
+				headerInfo = login;
+			}
+			
+			var headerStr = ''+
+							'<li class="mui-table-view-cell mui-media mineHead">' +
+								'<a class="mui-navigate-right" id = "headInfo">' +
+									'<img class="mui-media-object mui-pull-left" src="../img/3.jpg" />' +
+									'<div class="mui-media-body">' +
+										 headerInfo +
+										'</p>'+
+									'</div>'+
+								'</a>'+
+							'</li>';
+					
+			htmlStr += headerStr;
+			
+			if (isShow) {
+				
+				//显示所有
+				for (var i = 0; i < 10; i++) {
+						
+					htmlStr += '' +
+							'<li class="mui-table-view-cell mui-media mineHeadList">' +
+								'<a>' +
+									'<span class="mui-media-object mui-pull-left mui-icon iconfont icon-gongzuo" style="color:'+headListColors[i%2]+';"></span>' +
+									'<div class="mui-media-body">' +
+										'发布版本！' +
+										'<input type="button" value="完成"  style="float: right;"/>' +
+										'<p class="mui-ellipsis">' +
+											'今晚发布版本！'+
+										'</p>' +
+									'</div>' +
+								'</a>' +
+							'</li>';
+				}
+				
+				
+				var arrowStr = '' +
+							'<p style="text-align: center;">' +
+								'<a class="down">' +
+									'<span class="mui-icon iconfont icon-icoxiashuangjiantou rotate"></span>' +
+								'</a>' +
+							'</p>';
+			
+				htmlStr += arrowStr;
+				headTable.innerHTML = htmlStr;
+				
+			}else {
+				
+				//显示两条
+				for (var i = 0;i < 2; i++) {
+					
+					htmlStr += '' +
+							'<li class="mui-table-view-cell mui-media mineHeadList">' +
+								'<a>' +
+									'<span class="mui-media-object mui-pull-left mui-icon iconfont icon-gongzuo" style="color:'+headListColors[i%2]+';"></span>' +
+									'<div class="mui-media-body">' +
+										'开会' +
+										'<input type="button" value="完成"  style="float: right;"/>' +
+										'<p class="mui-ellipsis">' +
+											'明天9点开会！'+
+										'</p>' +
+									'</div>' +
+								'</a>' +
+							'</li>';	
+				}
+				
+				var arrowStr = '' +
+							'<p style="text-align: center;">' +
+								'<a class="down">' +
+									'<span class="mui-icon iconfont icon-icoxiashuangjiantou"></span>' +
+								'</a>' +
+							'</p>';
+				htmlStr += arrowStr;
+				headTable.innerHTML = htmlStr;
+			
+			}
+		}
+		
+		function addContentListView() {
+			
+			var contentTable = document.getElementsByClassName('conentList')[0];
+			var titles = ['收藏','邀请','帮助','关于','我的简历'];
+			var contentColors = ['#2fc4c2',"#71a6d2",'#2fc4c2',"#71a6d2"];
+			var htmlStr = '';
+			for (var i = 0;i < titles.length; i++) {
+				
+				htmlStr += '' + 
+						'<li class="mui-table-view-cell">' +
+							'<span class="mui-icon mui-icon-person" style="color:'+contentColors[i%2]+';"></span>  '+ titles[i] +'' +
+						'</li>';
+						
+			}
+			contentTable.innerHTML = htmlStr;
+		}
+		
+	</script>
+</body>
+</html>

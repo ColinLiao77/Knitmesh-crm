@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>客户父子页面</title>
+    <link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/own.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+    <style type="text/css">
+    		.mui-table-view {
+    			margin-top: 0px;
+    			
+    		}
+    		.mui-table-view-cell:after {
+    			
+    			left: 0px;
+    		}
+    		
+    		.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+	    			
+	 		 border-bottom: 2px solid #F77273;
+	    		 color: #F77273;
+	    	}
+	    		
+   		.mui-segmented-control.mui-segmented-control-inverted .mui-control-item {
+	    			
+	    		 color: #aab3b2;
+	    	}
+    		
+    </style>
+</head>
+<body>
+	<div class="mui-content">
+		<div id="slider" class="mui-slider">
+			<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a class="mui-control-item mui-active" href="#myGet">
+					要见客户
+				</a>
+				<a class="mui-control-item" href="#myPost">
+					已见客户
+				</a>
+			</div>
+			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6" style="background-color: #F77273;"></div>
+			<div class="mui-slider-group">
+				<div id="myGet" class="mui-slider-item mui-control-content mui-active">
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<ul class="mui-table-view">
+								
+								
+								<li class="mui-table-view-cell" style="line-height: 1.5em;">
+									sfsf
+									<span class="mui-icon mui-icon-location" style="color: red;"></span>
+									
+								</li>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div id="myPost" class="mui-slider-item mui-control-content">
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<script src="../js/mui.min.js" charset="UTF-8"></script>
+	<script src="../js/own.js" charset="UTF-8"></script>
+	<script type="text/javascript" charset="UTF-8">
+		mui.init({
+			swipeBack:true
+		});
+		
+		mui.plusReady(function(){
+			
+			setSubWebviewBounce('vertical');
+			//设置是否需要bounce此处不需要
+			setSubWebviewBounce('none');
+			//让scroll能够滚动可以设置没有滚动条
+			mui('.mui-scroll-wrapper').scroll();
+			//设置滚动显示区域
+			var screenHeight =  document.body.scrollHeight;
+			var sc = document.querySelector('.mui-segmented-control');
+			mui.each(document.querySelectorAll('.mui-control-content'),function(index,item){
+				item.style.minHeight = screenHeight- 40 - sc.style.height +'px';
+			});
+			
+			
+			addOneView();
+			addTwoView();
+			
+			mui('.mui-table-view').on('tap','li',function(){
+				
+				var extendOptions = {};
+				pushWebView({
+					webType:'newWebview_Second',
+					id:'work/kehu-detail-needtem.html',
+					href:'work/kehu-detail-needtem.html',
+					aniShow:getaniShow(),
+					title:'客户详情',
+					isBars:false,
+					barsIcon:'',
+					extendOptions:extendOptions
+				});
+			});
+		});
+		
+		function addOneView(){
+			
+			var arr = [
+			{
+				'name':'百度',
+				'addr':'大院北二街15号院',
+				'state':'1天未拜访'
+			},
+			{
+				'name':'QQ',
+				'addr':'大院北二街15号院',
+				'state':'1天未拜访'
+			},
+			{
+				'name':'QQ',
+				'addr':'大院北二街15号院',
+				'state':'已完成'
+			},
+			{
+				'name':'QQ',
+				'addr':'大院北二街15号院',
+				'state':'1天未拜访'
+			},
+			{
+				'name':'QQ',
+				'addr':'大院北二街15号院',
+				'state':'1天未拜访'
+			},
+			{
+				'name':'QQ',
+				'addr':'大院北二街15号院',
+				'state':'1天未拜访'
+			},
+			{
+				'name':'QQ',
+				'addr':'大院北二街15号院',
+				'state':'1天未拜访'
+			},
+			{
+				'name':'QQ',
+				'addr':'大院北二街15号院',
+				'state':'已完成'
+			}
+			];
+			
+			
+			var table = document.getElementById('myGet').getElementsByClassName('mui-scroll')[0];
+			
+			var htmlStr = '<ul class="mui-table-view">';
+			
+		
+			for (var i = 0; i < arr.length ; i++) {
+			
+				var dic = arr[i];
+				var color = '#F77273';
+				
+				if (dic['state'] == '已完成')  {
+					
+					color = '#7dc1aa';
+				}
+				
+				
+				htmlStr += '' + 
+								'<li class="mui-table-view-cell" style="line-height: 1.5em;">' +
+									 dic['name']+
+									'<p>' +
+										'<span class="mui-icon mui-icon-location" style="font-size:16px;"></span>' +
+										'<span style="font-size: 12px;">'+dic['addr']+'</span>' +
+									'</p>' +
+									'<span class="mui-badge mui-badge-inverted" style="font-size: 10px;color: '+color+'">'+dic['state']+'</span>' +
+								'</li>';
+			}
+			
+			htmlStr += '</ul>';
+			table.innerHTML = htmlStr;
+		}
+		
+		
+		function addTwoView(){
+			
+			var arr = [
+			{
+				'name':'网易',
+				'addr':'大院北二街15号院',
+				'state':'1天未拜访'
+			},
+			{
+				'name':'QQ',
+				'addr':'大院北二街15号院',
+				'state':'1天未拜访'
+			},
+			{
+				'name':'QQ',
+				'addr':'大院北二街15号院',
+				'state':'已完成'
+			},
+			{
+				'name':'QQ',
+				'addr':'大院北二街15号院',
+				'state':'1天未拜访'
+			},
+			{
+				'name':'QQ',
+				'addr':'大院北二街15号院',
+				'state':'1天未拜访'
+			},
+			{
+				'name':'QQ',
+				'addr':'大院北二街15号院',
+				'state':'1天未拜访'
+			},
+			{
+				'name':'QQ',
+				'addr':'大院北二街15号院',
+				'state':'1天未拜访'
+			},
+			{
+				'name':'QQ',
+				'addr':'大院北二街15号院',
+				'state':'已完成'
+			}
+			];
+			
+			
+			var table = document.getElementById('myPost').getElementsByClassName('mui-scroll')[0];
+			
+			var htmlStr = '<ul class="mui-table-view">';
+			
+		
+			for (var i = 0; i < arr.length ; i++) {
+			
+				var dic = arr[i];
+				var color = '#F77273';
+				
+				if (dic['state'] == '已完成')  {
+					
+					color = '#7dc1aa';
+				}
+				
+				
+				htmlStr += '' + 
+								'<li class="mui-table-view-cell" style="line-height: 1.5em;">' +
+									 dic['name']+
+									'<p>' +
+										'<img src="../img/iconfont-dingwei.png" style="height: 1.2em;width: 1.2em;" />' +
+										'<span style="font-size: 12px;">'+dic['addr']+'</span>' +
+									'</p>' +
+									'<span class="mui-badge mui-badge-inverted" style="font-size: 10px;color: '+color+'">'+dic['state']+'</span>' +
+								'</li>';
+			}
+			
+			htmlStr += '</ul>';
+			table.innerHTML = htmlStr;
+		}
+		
+		
+		
+	</script>
+	
+</body>
+</html>

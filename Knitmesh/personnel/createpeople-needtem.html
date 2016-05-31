@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>第三级父子页面子页面 创建人员</title>
+    
+    <link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/own.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+    <style type="text/css">
+    		.mui-card {
+    			padding: 1em;
+    			background-color: #dcdcdc;
+    		}
+    		.mui-input-group,
+    		.mui-input-group .mui-input-row {
+    			background-color: #dcdcdc;
+    			margin-top: 10px;
+    		}
+    		.mui-input-group .mui-input-row:after {
+    			height: 0px;
+    		}
+    		.mui-input-group .mui-input-row input {
+    			border: 1px solid white;
+    			background-color: white;
+    			border-radius: 5px;
+    		}
+    		.mui-input-row label {
+    			width: 30%;
+    			color: dimgray;
+    			/*font-size: 0.8em;*/
+    		}
+    		.mui-input-row label~input {
+    			float: left;
+    			width: %75;
+    			font-size: 0.9em;
+    		}
+    		.mui-input-row .mui-input-clear~.mui-icon-clear {
+    			right: 1px;
+    		}
+    		.mui-button-row {
+    			margin-top: 20px;
+    		}
+    		.mui-button-row .own-btn-cancel {
+    			padding-left: 30px;
+    			padding-right: 30px;
+    			margin-right: 30px;
+    		}
+    		.mui-button-row .own-btn-sure {
+    			padding-left: 30px;
+    			padding-right: 30px;
+    			margin-left: 30px;
+    		}
+    </style>
+</head>
+<body>
+	
+	<div class="mui-content">
+		<div class="mui-card">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>姓名:</label>
+					<input class="mui-input-clear" type="text" placeholder="" />
+				</div>
+				<div class="mui-input-row">
+					<label>职位:</label>
+					<input class="mui-input-clear" type="text" placeholder="" />
+				</div>
+				<div class="mui-input-row">
+					<label>电话:</label>
+					<input class="mui-input-clear" type="text" placeholder="" />
+				</div>
+			</form>
+			<div class="mui-button-row">
+				<button type="button" class="mui-btn own-btn-cancel ">取消</button>
+				<button type="button" class="mui-btn own-btn-sure">创建</button>
+			</div>
+		</div>
+	</div>
+	
+	<script src="../js/mui.min.js" charset="UTF-8"></script>
+	<script src="../js/own.js" charset="UTF-8"></script>
+	<script type="text/javascript" charset="UTF-8">
+		mui.init({
+			swipeBack:true
+		});
+		
+		mui.plusReady(function(){
+			
+		});
+	</script>
+</body>
+</html>

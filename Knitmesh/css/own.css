@@ -1,0 +1,125 @@
+
+
+body,
+.mui-content {
+	background-color: #f8f8f8;
+}
+
+/*对header的设置 适合每个页面*/
+.mui-bar.mui-bar-nav {
+	background-color: white;
+	border-bottom: 1px solid #c1c1c1;
+}
+
+.own-maingray-color,
+.own-maingray-b-color {
+	color: darkgray;
+}
+
+.own-mainblue-color,
+.own-mainblue-b-color {
+	color: #2294fc;
+}
+
+/*按钮*/
+.own-btn-cancel {
+	color: white;
+	border: 1px solid #81CEF2;
+	background-color: #81CEF2;
+}
+
+.own-btn-cancel.mui-active:enabled,
+.own-btn-cancel:enabled:active {
+	color: white;
+	border: 1px solid darkgray;
+	background-color: darkgray;
+}
+
+.own-btn-sure {
+	color: white;
+	border: 1px solid #E96979;
+	background-color: #E96979;
+}
+
+.own-btn-sure.mui-active:enabled,
+.own-btn-sure:enabled:active {
+	color: white;
+	border: 1px solid darkgray;
+	background-color: darkgray;
+}
+
+.own-btn-blue {
+	color: white;
+	border: 1px solid #1eb8ea;
+	background-color: #1eb8ea;
+}
+
+.own-btn-blue.mui-active:enabled,
+.own-btn-blue:enabled:active {
+	color: white;
+	border: 1px solid #1eb8ea;
+	background-color: #1eb8ea;
+}
+
+.own-msg-table-view-cell{
+	padding-top: 8px; 
+	padding-bottom: 8px; 
+	padding-right: 0.5em;
+	padding-left: 0.7em;
+}
+
+.own-msg-table-view-cell .mui-table .own-msg-table-cell1 {
+}
+.own-msg-table-view-cell .mui-table .own-msg-table-cell1 div {
+	/*font-size: 2em;*/ 
+	position: absolute; 
+	width: 2.7em;
+	height: 2.7em;
+	border-radius: 50%;
+	left: 0.2em; 
+	top: 0.1em;
+}
+.own-msg-table-view-cell .mui-table .own-msg-table-cell1 div span {
+	padding-left: 0.5em;
+	padding-top: 0.4em;
+	color: white;
+	font-size: 1.4em;
+}
+
+
+.own-msg-table-view-cell .mui-table .own-msg-table-cell2 {
+	padding-left: 0.4em;
+}
+
+.own-msg-table-view-cell .mui-table .own-msg-table-cell2 p{
+	padding-top: 0.1em;
+	color: black;
+}
+
+.own-msg-table-view-cell .mui-table .own-msg-table-cell2 h6 {
+	padding-top: 0.2em;
+}
+.own-msg-table-view-cell .mui-table .own-msg-table-cell3 h6{
+	word-break: keep-all; 
+	text-align: center; 
+	font-size: 0.6em;
+	padding-top: 0.2em;
+}
+
+/*为部门颜色*/
+.own-department-1 {
+	background-color: #90c131;
+}
+.own-department-2 {
+	background-color: #81cef2;
+}
+.own-department-3 {
+	background-color: #f6b45a;
+}
+.own-department-4 {
+	background-color: #a98abb;
+}
+.own-department-5 {
+	background-color: #e96979;
+}
+

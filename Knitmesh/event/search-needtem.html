@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <style type="text/css">
+    
+    		.mui-content>.mui-table-view:first-child {
+    			
+    			margin-top: 0px;
+    		}
+    		
+    		
+    		input[type=text] {
+    			
+    			padding: 0px;
+    			margin: 0px;
+    			background-color: #eaebed;
+    			height: 100%;
+ 	
+ 			padding-left: 40px;
+    		}
+    		
+    		.search {
+    			
+    			background-color: #eaebed;
+    			border-radius: 5px;
+    			height: 100%;
+    			width: 100%;
+    			overflow: hidden;
+    		}
+    		
+    		
+    		.mui-table-view-cell:after {
+    			
+    			left: 0px;
+    		}
+    		
+    		.mui-slider-indicator,.mui-segmented-control .mui-control-item {
+    			
+    			text-align: left;
+    			
+    		}
+    		
+ 
+    		
+    </style>
+</head>
+<body>
+	<div class="mui-content">
+		
+		<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				
+				
+				<!--<a class="mui-control-item">-->
+					<div style="height: 3em; background-color: white;border-bottom: 1px solid #E3E3E3;padding: 5px 10px;">
+						<p class="search">
+							<span class="mui-icon mui-icon-search" style="border: 0px; width: 30px;height: 30px;position: absolute;"></span>
+							<input type="text" placeholder="搜索"  style="border: 0px;width: 100%;"/>
+						</p>
+					</div>
+				<!--</a>-->
+		
+			</div>
+			<div class="mui-slider-group">
+				<div id="search" class="mui-slider-item mui-control-content mui-active">
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<ul class="mui-table-view">
+								<li class="mui-table-view-cell">
+									ssss
+								</li>
+								<li class="mui-table-view-cell">
+									ssss
+								</li>
+								<li class="mui-table-view-cell">
+									ssss
+								</li><li class="mui-table-view-cell">
+									ssss
+								</li><li class="mui-table-view-cell">
+									ssss
+								</li><li class="mui-table-view-cell">
+									ssss
+								</li><li class="mui-table-view-cell">
+									ssss
+								</li><li class="mui-table-view-cell">
+									ssss
+								</li><li class="mui-table-view-cell">
+									ssss
+								</li><li class="mui-table-view-cell">
+									ssss
+								</li><li class="mui-table-view-cell">
+									ssss
+								</li><li class="mui-table-view-cell">
+									ssss
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		
+		
+	</div>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/own.js" ></script>
+	<script type="text/javascript" charset="UTF-8">
+      	mui.init();
+      	mui.plusReady(function(){
+      		
+      			setSubWebviewBounce('none');
+				mui('.mui-scroll-wrapper').scroll();
+				//设置滚动显示区域
+				var screenHeight =  document.body.scrollHeight;
+				var sc = document.querySelector('.mui-segmented-control');
+				mui.each(document.querySelectorAll('.mui-control-content'),function(index,item){
+					item.style.minHeight = screenHeight- 40 - sc.style.height +'px';
+				});
+				
+				
+				document.addEventListener('key',function(){
+					
+					console.log(this.innerDiv);
+				});
+      	});
+    </script>
+    
+</body>
+</html>

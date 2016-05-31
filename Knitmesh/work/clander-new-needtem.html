@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+
+		<link href="../css/mui.min.css" rel="stylesheet" />
+
+		<link href="../css/mui.listpicker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+
+		<style type="text/css">
+			.mui-table {
+	  			
+	  			margin-top: 10px;
+	  		}
+	  		.mui-col-xs-3 {
+	
+	  			text-align: center;
+	  		}
+	  		.mui-col-xs-2 {
+	  			
+	  			text-align: center;
+	  			font-size: 10px;
+	  		}
+	  		
+	  		table {
+	  			
+	  			width: 100%;
+	  			text-align: center;
+	  			font-size: 12px;
+	  		}
+	  		
+	  		table td{
+	  			
+	  			padding: 0.5em;
+	  		}
+	  		
+	  		.noTheMonth {
+	
+			   color: gray;
+			 }
+			 
+			 .currYearMonth {
+			 	
+			 	color: black;
+			 	/*font-size: 1px;*/
+			 }
+			
+			.selectDay {
+				
+				border:1px solid red;
+			}
+			 .noSelectDay {
+			 	
+			 	border: 1px solid #eee;
+			 }
+			 
+		</style>
+	</head>
+
+	<body>
+
+		<div class="mui-content">
+			<div class="mui-table mui-col-xs-12">
+				<div class="mui-table-cell mui-col-xs-3">
+					 <button type="button" class="mui-btn mui-btn-link" onclick="getLastMonth()">
+			            <span class="mui-icon mui-icon-back"></span>
+			            上一月
+			        </button>
+				</div>
+				<div class="mui-table-cell mui-col-xs-3">
+					<button type="button" class="mui-btn mui-btn-link currYearMonth">
+						
+					</button>
+				</div>
+				<div class="mui-table-cell mui-col-xs-3">
+					<button type="button" class="mui-btn mui-btn-link" onclick="getToday()">
+						回到今天
+					</button>
+				</div>
+				<div class="mui-table-cell mui-col-xs-3">
+					 <button type="button" class="mui-btn mui-btn-link" onclick="getNextMonth()">
+			            下一月
+			            <span class="mui-icon mui-icon-forward"></span>
+			        </button>
+				</div>
+			</div>
+			<div class="mui-table">
+				<div class="mui-table-cell mui-col-xs-2">周一</div>
+				<div class="mui-table-cell mui-col-xs-2">周二</div>
+				<div class="mui-table-cell mui-col-xs-2">周三</div>
+				<div class="mui-table-cell mui-col-xs-2">周四</div>
+				<div class="mui-table-cell mui-col-xs-2">周五</div>
+				<div class="mui-table-cell mui-col-xs-2">周六</div>
+				<div class="mui-table-cell mui-col-xs-2">周日</div>
+			</div>
+			<table>
+				<tr><td id="today"><span></span></td></tr>
+			</table>
+			
+			<button class="mui-btn mui-btn-block selectTime" type='button' style="margin-top: 1em;border: 0px;font-size: 15px;" onclick="selectDetailTime()">选择时间</button>
+			<button class="mui-btn mui-btn-block" type="button" onclick="okBtnAction()">确定</button>
+
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/wl_Calendar.js"></script>
+		<script src="../js/mui.listpicker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+
+		<script type="text/javascript" charset="UTF-8">
+			
+		      	
+		      	var selectTimeMin = '';
+		      	var stateStr = '';
+				var intvelDay = 0;
+				var lastSelectDay = document.getElementById('today');
+				var selectDayTime = new Date(); //选择时间
+				var goToToday = true;
+				var goIntoDay;
+				
+				var picker = new mui.PopPicker({
+		      			layer:3
+		      		});
+		
+				mui.init({
+					beforeback:function(){
+						
+						var parentWeb = plus.webview.getWebviewById('template-sub-first.html');
+						var selectTime = document.getElementsByClassName('selectTime')[0];
+						console.log(stateStr);
+		      			mui.fire(parentWeb,'selectTime',{
+		      				'time':selectDayTime.toString(),
+		      				'state':stateStr
+		      			});
+						return true;
+					}
+				});
+				
+
+		      	mui.plusReady(function(){
+		 
+					
+		      		
+		      	
+		      		
+		      		var parentWeb = plus.webview.getWebviewById('template-main-second.html');
+		      		mui.fire(parentWeb,'getExtendOptions',{});
+		      		
+		      		window.addEventListener('postExtendOptions',function(event){
+		      			
+		      			if(event.detail.extendOptions.state != undefined) {
+		      				
+		      				stateStr = event.detail.extendOptions.state;
+		      				console.log('sfsfsfs');
+		      			}
+		      			if(event.detail.extendOptions.time != undefined) {
+		      				
+		      				selectDayTime = new Date(event.detail.extendOptions.time);
+		      				var selectTime = document.getElementsByClassName('selectTime')[0];
+		      				selectTime.innerHTML = dateToString(selectDayTime);
+		      			}
+		      			addCalenderView();
+		      			
+		      		});
+		      		
+		      		setPickerData();
+		      		
+		      		
+		      		
+		      		mui('table').on('tap','td',function(){
+		      			
+		      		
+		      			if (!this.classList.contains('noTheMonth')) {
+		      				
+		      				
+		      				if (lastSelectDay != this) {
+		      					
+		      				
+			      				var today = new Date();
+			      				console.log(lastSelectDay.innerHTML);
+			      				this.getElementsByTagName('span')[0].className = 'selectDay';
+
+				      			lastSelectDay.getElementsByTagName('span')[0].className = 'noSelectDay';
+				      			
+				      			lastSelectDay = this;
+				      			selectDayTime.setDate(this.innerText);
+				      			tapLiRefresh();
+				      		
+		      				}
+			      		}
+		      		});
+		      	});
+		      	
+		      	function selectDetailTime() {
+		      		
+		      		picker.show(function(items){
+			      				
+			      		var selectTime = document.getElementsByClassName('selectTime')[0];
+			      	
+			      		selectTimeMin = '';
+			      		selectTimeMin += items[0]['value'] + ' ';
+			      		selectTimeMin += items[1]['text'] + ':';
+			      		selectTimeMin += items[2]['text'] < 10 ? '0' + items[2]['text'] : items[2]['text'];
+			      		
+			      		var hours = items[1]['text'];
+			      		if (items[0]['value'] == 'am') {
+			      			
+			      			
+			      		}else {
+			      			
+			      			hours += 12;
+			      		}
+			      		
+			      		
+			      		selectDayTime.setHours(hours);
+			      		selectDayTime.setMinutes(items[2]['text']);
+			      		selectDayTime.setSeconds(0);
+			      		
+			      		
+			    			selectTime.innerHTML = dateToString(selectDayTime);
+			      	});
+		      	}
+		      	
+		      	function tapLiRefresh() {
+		      		
+		      		var selectTime = document.getElementsByClassName('selectTime')[0];
+		      		
+		      		var minStr = ' --:--';
+		      		if (selectTimeMin != '') {
+		      			
+		      			minStr = ' '+ selectTimeMin;
+		      		}
+		      		
+//		      		console.log()
+		      		selectTime.innerHTML = selectDayTime.getFullYear() + '-' + (selectDayTime.getMonth() + 1) + '-' + selectDayTime.getDate() + minStr;
+		      	}
+		      	
+		      	
+		      	function addCalenderView(){
+		      		
+		      		var today = new Date(selectDayTime);
+		      		var today1 = new Date(selectDayTime);
+		      		
+		      		
+		      		
+		      		
+		      		console.log(today.getMonth());
+		      		
+		      		today.setMonth(today.getMonth()+intvelDay);
+		      		var calenderDic = getDateCalender(today);
+		      	
+		      		var table = document.getElementsByTagName('table')[0];
+		      		
+		      		
+		      		
+		      		selectDayTime.setFullYear(calenderDic[0]['year']);
+		      		selectDayTime.setMonth(calenderDic[0]['month'] - 1);
+		      		
+		      		
+		      		
+		      		
+		      		var yearMonthDive = document.getElementsByClassName('currYearMonth')[0];
+		      		yearMonthDive.innerHTML = calenderDic[0]['year'] + '年' +calenderDic[0]['month'] +'月'; 
+		      		
+		      		
+		      		
+		      		var htmlStr = '';
+		      		var dayArray = calenderDic[0]['day'];
+		      		console.log(JSON.stringify(dayArray));
+		      		
+		      		
+		      		for (var i = 0; i < 6; i++) {
+		      			
+		      			var tdStr = '';
+		      			for (var j = 0; j < 7; j++) {
+		      				
+		      				var thisMonthClass = '';
+		      				var selectClass = '';
+							if (dayArray[i * 7 + j]['monthState'] != 'this') {
+							
+								thisMonthClass = 'noTheMonth ';
+							}
+						
+							if (dayArray[i * 7 + j]['day'] == selectDayTime.getDate() && 
+								dayArray[i * 7 + j]['monthState'] == 'this' ) {
+									
+								selectClass = 'selectDay';
+								dayId = 'today';
+							}else {
+								
+								selectClass = 'noSelectDay';
+								dayId = '#';
+							}
+							
+							tdStr += '<td id="'+dayId+'" style="" class="'+thisMonthClass +'"><span class="'+selectClass+'" style="width:2em;height:2em;display:inline-block">'+dayArray[i * 7 + j]['day']+'</span></td>';
+		      			}
+		      			htmlStr += '<tr>'+ tdStr + '</tr>';
+		      			
+		      		}
+		      		table.innerHTML = htmlStr;
+		      		
+		      		
+		      		lastSelectDay = document.getElementById('today');
+		      	}
+		      	
+		      	
+		      	function getLastMonth(){
+		      		
+		      		intvelDay = -1;
+		      		addCalenderView();
+		      		tapLiRefresh();
+		      	}
+		      	
+		      	function getNextMonth(){
+		      		
+		      		intvelDay = 1;
+		      		addCalenderView();
+		      		tapLiRefresh();
+		      	}
+		      	
+		      	function getToday(){
+		      		
+		      		intvelDay = 0;
+		      		selectDayTime = new Date();
+		      		addCalenderView();
+		      		
+		      		tapLiRefresh();
+		      		
+		      	}
+		      	
+		      	
+		      	
+		      	function setPickerData() {
+		      		
+		      		var min = new Array();
+					for (var i = 0; i < 60; i++) {
+								
+						min.push({
+							value:i,
+							text:i
+						})
+					}
+							
+					var hours = new Array();
+							
+					for (var i = 0; i < 12; i++) {
+								
+						hours.push({
+							value:i,
+							text:i,
+							children:min
+						});
+					}
+					
+					picker.setData([
+						{
+							value: 'am',
+							text: '上午',
+							children:hours
+						},
+						{
+							value: 'pm',
+							text: '下午',
+							children:hours
+						}
+					]);	
+		      	}
+		      	
+		      	function okBtnAction(){
+		      		
+		      		var selectTime = document.getElementsByClassName('selectTime')[0];
+		      		
+		      		console.log(selectTime.innerHTML.indexOf(':'));
+		      		if (selectTime.innerHTML.indexOf(':') >= 0 && selectTime.innerHTML.indexOf('--') < 0) {
+		      			
+		      			mui.back();
+		      		}else {
+		      			
+		      			mui.alert('请选择具体时间！')
+		      		}	
+		      	}
+		      	
+		</script>
+
+	</body>
+
+</html>

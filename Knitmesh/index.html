@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+   	<title>首页父子模版父模版</title>
+   	
+   	<link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+   	<link rel="stylesheet" type="text/css" href="css/own.css"/>
+   	<link rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+   	
+   	<style type="text/css">
+   	
+   		.mui-tab-item.mui-active .mui-icon,
+   		.mui-tab-item.mui-active .mui-tab-label {
+   			color: #2294fc;
+   		}
+   		.mui-tab-item.mui-active .mui-tab-label {
+   			font-size: 1.2em;
+   		}
+   		
+   		.mui-bar-tab .mui-tab-item {
+   			background-color: white;
+   		}
+   		.mui-bar-tab .mui-tab-item .mui-icon {
+   			top: 0px;
+   			font-size: 1.2em;
+   			width: 1.2em;
+			height: 1.2em;
+			padding-top: 2px;
+			padding-bottom: 0;
+   		}
+   	</style>
+</head>
+<body>
+	<div class="mask" style="height: 100%;width: 100%;background:rgba(0,0,0,0.3) ;position: absolute;z-index: 8888;display: none;">
+	</div>
+	
+	<header class="mui-bar mui-bar-nav">
+		<h1 class="mui-title">织网</h1>
+	</header>
+	<nav class="mui-bar mui-bar-tab">
+		<a class="mui-tab-item mui-active" href="barItem/barEvent.html">
+			<span class="mui-icon iconfont icon-laba1"></span>
+			<span class="mui-tab-label">消息</span>
+		</a>
+		<a class="mui-tab-item" href="barItem/barProj.html">
+			<span class="mui-icon iconfont icon-gongzuo"></span>
+			<span class="mui-tab-label">工作</span>
+		</a>
+		<!--<a class="mui-tab-item" href="barItem/barCustomer.html">
+			<span class="mui-icon iconfont icon-baobiao"></span>
+			<span class="mui-tab-label">织网</span>
+		</a>
+		<a class="mui-tab-item" href="barItem/barContact.html">
+			<span class="mui-icon iconfont icon-iconcomment48"></span>
+			<span class="mui-tab-label">沟通</span>
+		</a>-->
+		<a class="mui-tab-item" href="barItem/barMine.html">
+			<span class="mui-icon iconfont icon-xingming"></span>
+			<span class="mui-tab-label">我</span>
+		</a>
+	</nav>
+	
+	<script src="js/mui.min.js" charset="UTF-8"></script>
+	<script type="text/javascript" charset="UTF-8">
+		mui.init({
+			swipeBack:false
+		});
+		
+		var navTitle;
+		var mainWebview;
+		var curBarItemWebview;
+		
+		var barItemWebviewArray = [];
+		var barItemArray = ['barItem/barEvent.html','barItem/barProj.html','barItem/barCustomer.html','barItem/barContact.html','barItem/barMine.html'];
+		mui.plusReady(function(){
+			
+			navTitle = document.querySelector('.mui-title');
+			mainWebview = plus.webview.currentWebview();
+			
+			//设置只支持竖屏幕显示
+			plus.screen.lockOrientation("portrait-primary");
+			
+			//初始化index下面页面
+			initIndexView();
+			//检测是否需要显示导航页面
+			showlanchView();
+			//预加载template
+			initTemplate();
+			
+
+			addMask();
+			
+			
+			
+			
+		});
+		
+		//预加载template
+		function initTemplate(){
+			var webview =  mui.preload({
+				id:'template',
+				url:'template.html',
+				styles:{
+					top: '-1000px',
+				}
+			});
+			webview.show();
+		};
+		
+		//初始化
+		function initIndexView(){
+			//初始化所有bar页面
+			inittabitemWebviews();
+			//添加bar点击事件接受
+			tapBaritem();
+		}
+
+		//显示登录前置页面
+		function showregisterproview(){
+			var showRegisterPro = plus.storage.getItem("registerPro");
+			if (!showRegisterPro) {
+				mui.openWindow({
+					id:'registerPro',
+					url:'personnel/enterpriseRegisterpro.html',
+					show:{
+						aniShow:'none'
+					},
+					waiting:{
+						autoShow:false
+					}
+				});
+			}
+		}
+		
+		//是否显示lanch页面
+		function showlanchView(){
+			showregisterproview();
+			var showGuide = plus.storage.getItem("lauchFlag");
+			setTimeout(function(){
+				if (showGuide) {
+					//检测是否登录过在登录过显示登录前置页面
+					closeStartScreent();
+				}else {
+					plus.navigator.setFullscreen(true);
+					mui.openWindow({
+						id:'guide',
+						url:'guide/guide.html',
+						show:{
+							aniShow:'none'
+						},
+						waiting:{
+							autoShow:false
+						}
+					});
+					
+					setTimeout(function(){
+						closeStartScreent();
+					},300);
+				}
+			},300);
+		}
+		
+		//初始化所有bar页面
+		function inittabitemWebviews(){
+			for (var i = 0; i < barItemArray.length; i++) {
+				barItemWebviewArray[i] = mui.preload({
+					id:barItemArray[i],
+					url:barItemArray[i],
+					styles:{
+						top:'44px',
+						bottom: '51px',
+						left: '0px',
+						bounce: 'vertical',
+						bounceBackground: '#f8f8f8'
+					},
+					waiting:{
+						autoShow:false
+					}
+				});
+				barItemWebviewArray[i].hide();
+				mainWebview.append(barItemWebviewArray[i]);
+			}
+			barItemWebviewArray[0].show();
+			curBarItemWebview = barItemWebviewArray[0];
+		}
+		//添加点击时间
+		function tapBaritem(){
+			mui('.mui-bar-tab').on('tap','.mui-tab-item',function(){
+				var baritem = this;
+				var baritemurl = baritem.getAttribute('href'); 
+//				indexof()如果为false返回－1所以前面加上~
+				if (!~curBarItemWebview.getURL().indexOf(baritemurl)) {
+					
+					for (var i = 0; i < barItemArray.length; i++) {
+						if (barItemArray[i] == baritemurl) {
+							//更改头部名字
+							navTitle.innerText = baritem.children[baritem.children.length-1].innerText;
+							//切换baritemwebview
+							barItemWebviewArray[i].show();
+							curBarItemWebview = barItemWebviewArray[i];
+							break;
+						}
+					}
+				}
+			});
+		}
+		
+		//关闭启动页面
+		function closeStartScreent(){
+			//创建父子模版完成后关闭启动页面
+			plus.navigator.closeSplashscreen();
+		}
+		
+		//两次点击返回
+		var first = null;
+		mui.back = function(){
+			//首次按键
+			if (!first) {
+				first = new Date().getTime();
+				mui.toast("再按一次退出");
+				setTimeout(function(){
+					first = null;
+				},1000);
+			}else {
+				if (new Date().getTime() - first < 1000) {
+					plus.runtime.quit();
+				}
+			}
+		}
+		
+		
+		var mask = document.getElementsByClassName('mask')[0];
+		function addMask(){
+			
+			var sub;
+			document.addEventListener('showMask',function(event){
+				
+				sub = plus.webview.getWebviewById(event.detail.web);
+				showMask();
+			});
+			
+			document.addEventListener('hiddenMask',function(){
+				
+				hiddenShow();
+			});
+			
+			document.getElementsByClassName('mask')[0].addEventListener('tap',function(){
+				
+				hiddenShow();
+				
+				console.log(sub);
+				mui.fire(sub,'hiddenMask',{});
+			});
+		}
+		
+		function showMask(v){
+			
+			mask.style.display = 'block';
+			
+		}
+		
+		function hiddenShow(v){
+			
+			mask.style.display = 'none';
+			mui.fire(v,'hiddenMask',{});
+		}
+	
+	
+	</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>非父子页面,企业创建前置页面</title>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/own.css"/>
+    
+    <style type="text/css">
+    		.juzhong {
+    			width: 90%;
+    			margin-top: 7em;
+    			padding-top: 8%;
+    			margin-left: 5%;
+    			padding-bottom: 3%;
+    			background-color: #e5e5e5;
+    			border-radius: 8px;
+    		}
+    		.mui-button-row .mui-btn {
+    			padding: 14px; 
+    			font-size: 0.9em; 
+    			border-radius: 6px;
+    			border: none;
+    		}
+    		
+    		/*.own-btn-mainColor.mui-active:enabled,
+.own-btn-mainColor:enabled:active*/
+		.changeBg.mui-active:enabled,
+		.changeBg:enabled:active {
+			background-color: white;
+			color: black;
+		}
+    </style>
+</head>
+<body>
+	
+	<div class="mui-content">
+		<div class="juzhong">
+			<div class="mui-button-row" style="margin: 10px;">
+				<button class="mui-btn mui-btn-block changeBg" type="button" value="1">创建一个企业账号</button>
+				<button class="mui-btn mui-btn-block changeBg" type="button"  value="2" style="margin-top: 2em;">我有邀请码</button>
+				
+				<button class="mui-btn mui-btn-block" type="button" value="3" style="margin-top: 2em; padding: 4px; background-color: #f5b45a; color: white;">取消</button>
+			</div>
+		</div>
+	</div>
+	
+	<script src="../js/mui.min.js" charset="UTF-8"></script>
+	<script src="../js/own.js" charset="UTF-8"></script>
+	<script type="text/javascript" charset="UTF-8">
+		mui.init({
+			swipeBack:true
+		});
+		
+		mui.plusReady(function(){
+			mui('.mui-button-row').on('tap','.mui-btn',function(){
+				
+				var btn = this;
+				//切换不同页面
+				if (btn.value == '1') {
+//					pushWebView({
+//					webType:'newWebview_first',
+//					id:id,
+//					href:href,
+//					aniShow:getaniShow(),
+//					title:title,
+//					isBars:isBars,
+//					barsIcon:barsIcon,
+//					extendOptions:extendOptions
+//				});
+				
+				
+				var extendOptions = {};
+				pushWebView({
+					webType:'newWebview_First',
+					id:'personnel/department.html',
+					href:'personnel/department.html',
+					aniShow:'slide-in-bottom',
+					title:'部门管理',
+					isBars:false,
+					barsIcon:'',
+					extendOptions:extendOptions
+				});
+					
+				} else if(btn.value == '2'){
+					
+				}else if(btn.value == '3'){
+					plus.webview.currentWebview().close();
+				}
+			});
+		});
+	</script>
+	
+</body>
+</html>

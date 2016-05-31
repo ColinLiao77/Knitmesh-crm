@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>工作提醒父子模版</title>
+   	<link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+   	<link rel="stylesheet" type="text/css" href="../css/own.css"/>
+   	<link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+   	<style type="text/css">
+    		
+    		.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {
+    			border-bottom: none;
+    			/*border-top: none;*/
+    		}
+    		.mui-table-view .mui-table-view-cell:after {
+    			left: 0px;
+    		}
+    		.mui-table-view .mui-table-view-cell  {
+    			padding-top: 10px;
+    			padding-left: 8px;
+    			padding-right: 14px;
+    			padding-bottom: 10px;
+    			/*margin-left: 0px;*/
+    		}
+    		.mui-table-cell.mui-col-xs-1 {
+    			/*background: red;*/
+    			width: 10%;
+    		}
+    		.mui-table-cell.mui-col-xs-1 span {
+    			position: absolute;
+    			top: 0.85em;
+    			margin-left: 0.1em;
+    		}
+    		.mui-table-cell.mui-col-xs-1 span.high {
+    			color: red;
+    		}
+    		.mui-table-cell.mui-col-xs-1 span.low {
+    			color: lightgreen;
+    		}
+    		/*.mui-table-cell.mui-col-xs-9 {
+    			background: red;
+    		}*/
+    		.mui-table-cell.mui-col-xs-9 .first {
+    			color: black;
+    			font-size: 1.2em;
+    			font-weight: 500;
+    		}
+    		.mui-table-cell.mui-col-xs-9 .second {
+    			margin-top: 0.1em;
+    			font-size: 1em;
+    		}
+    		.mui-table-cell.mui-col-xs-9 .third {
+    			margin-top: 0.3em;
+    			font-size: 1em;
+    		}
+    		.mui-table-cell.mui-col-xs-9 {
+    			/*background: yellow;*/
+    		}
+    		.mui-table-cell.mui-col-xs-2 {
+    			/*background: blue;*/
+    			text-align: right;
+    		}
+    		.mui-table-cell.mui-col-xs-2 .tixing {
+    			margin-top: 1em;
+    		}
+    		
+    		/*.mui-table-view {
+    			border-right: 1px solid #EAEAEA;
+    		}*/
+    		
+    		.supDian {
+    			
+    			display: inline-table;
+    			margin-top: -5px;
+    			margin-left: 0px;
+    			width: 0.8em;
+    			height: 0.8em;
+    			background:#F77273;
+    			border-radius: 0.8em;
+    			color: #F77273;
+    		}
+    		
+   	</style>
+</head>
+<body>
+	<div class="mui-content">
+		<div id="slider" class="mui-slider">
+			<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a class="mui-control-item mui-active" href="#myGet">
+					我收到的
+					<sup class="supDian">.</sup>
+				</a>
+				<a class="mui-control-item" href="#myPost">
+					我发出的
+					
+					<sup class="supDian">.</sup>
+				</a>
+			</div>
+			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+			<div class="mui-slider-group">
+				<div id="myGet" class="mui-slider-item mui-control-content mui-active">
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<ul class="mui-table-view">
+								<li class="mui-table-view-cell">
+									<a href="#">
+										<div class="mui-table">
+											<div class="mui-table-cell mui-col-xs-1" >
+												<span class="high mui-icon iconfont icon-tixing"></span>
+											</div>
+											<div class="mui-table-cell mui-col-xs-9">
+												<p class="mui-ellipsis first">请尽快与xxxx公司取得稳住客户</p>
+												<p class="mui-ellipsis second">工作发起人：王亮</p>
+												<p class="mui-ellipsis third">王亮向你及其他同事转交了任务。</p>
+											</div>
+											<div class="mui-table-cell mui-col-xs-2">
+												<h6>12:30</h6>
+												<h6 class="tixing">
+													<span class="mui-badge mui-badge-red">3</span>
+												</h6>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a href="#">
+										<div class="mui-table">
+											<div class="mui-table-cell mui-col-xs-1" >
+												<span class="high mui-icon iconfont icon-tixing"></span>
+											</div>
+											<div class="mui-table-cell mui-col-xs-9">
+												<p class="mui-ellipsis first">王亮为天生练武奇才会360古老武学</p>
+												<p class="mui-ellipsis second">工作发起人：王亮</p>
+												<p class="mui-ellipsis third">王亮向你及其他同事转交了任务。</p>
+											</div>
+											<div class="mui-table-cell mui-col-xs-2">
+												<h6>昨天</h6>
+												<h6 class="tixing">
+													<span class="mui-badge mui-badge-red">3</span>
+												</h6>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a href="#">
+										<div class="mui-table">
+											<div class="mui-table-cell mui-col-xs-1" >
+												<span  class="low mui-icon iconfont icon-tixing"></span>
+											</div>
+											<div class="mui-table-cell mui-col-xs-9">
+												<p class="mui-ellipsis first">请尽快与xxxx公司取得联系，稳住客户</p>
+												<p class="mui-ellipsis second">工作发起人：王亮</p>
+												<p class="mui-ellipsis third">王亮向你转交了工作。</p>
+											</div>
+											<div class="mui-table-cell mui-col-xs-2">
+												<h6>2013-03-22</h6>
+												<h6 class="tixing">
+													<span class="mui-badge mui-badge-red">3</span>
+												</h6>
+											</div>
+										</div>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div id="myPost" class="mui-slider-item mui-control-content">
+					<div  class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<ul class="mui-table-view">
+								<li class="mui-table-view-cell">
+									<a href="#">
+										<div class="mui-table">
+											<div class="mui-table-cell mui-col-xs-1" >
+												<span class="high mui-icon iconfont icon-tixing"></span>
+											</div>
+											<div class="mui-table-cell mui-col-xs-9">
+												<p class="mui-ellipsis first">请尽快与xxxx公司取得稳住客户</p>
+												<p class="mui-ellipsis second">工作接受人：王亮</p>
+												<p class="mui-ellipsis third">你已向王亮指派了此任务。</p>
+											</div>
+											<div class="mui-table-cell mui-col-xs-2">
+												<h6>12:30</h6>
+												<h6 class="tixing">
+													<span class="mui-badge mui-badge-red">3</span>
+												</h6>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a href="#">
+										<div class="mui-table">
+											<div class="mui-table-cell mui-col-xs-1" >
+												<span class="high mui-icon iconfont icon-tixing"></span>
+											</div>
+											<div class="mui-table-cell mui-col-xs-9">
+												<p class="mui-ellipsis first">王亮为天生练武奇才会360古老武学</p>
+												<p class="mui-ellipsis second">工作接受人：王亮</p>
+												<p class="mui-ellipsis third">你已向王亮指派了此任务。</p>
+											</div>
+											<div class="mui-table-cell mui-col-xs-2">
+												<h6>昨天</h6>
+												<h6 class="tixing">
+													<span class="mui-badge mui-badge-red">3</span>
+												</h6>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a href="#">
+										<div class="mui-table">
+											<div class="mui-table-cell mui-col-xs-1" >
+												<span  class="low mui-icon iconfont icon-tixing"></span>
+											</div>
+											<div class="mui-table-cell mui-col-xs-9">
+												<p class="mui-ellipsis first">请尽快与xxxx公司取得联系，稳住客户</p>
+												<p class="mui-ellipsis second">工作接受人：王亮</p>
+												<p class="mui-ellipsis third">你已向王亮指派了此任务。</p>
+											</div>
+											<div class="mui-table-cell mui-col-xs-2">
+												<h6>2013-03-22</h6>
+												<h6 class="tixing">
+													<span class="mui-badge mui-badge-red">3</span>
+												</h6>
+											</div>
+										</div>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	<script src="../js/mui.min.js" charset="UTF-8"></script>
+	<script src="../js/own.js" charset="UTF-8"></script>
+	<script type="text/javascript">
+		mui.init({
+			swipeBack:true
+		});
+		
+		mui.plusReady(function(){
+			//设置是否需要bounce此处不需要
+			setSubWebviewBounce('none');
+			//让scroll能够滚动可以设置没有滚动条
+			mui('.mui-scroll-wrapper').scroll();
+			//设置滚动显示区域
+			var screenHeight =  document.body.scrollHeight;
+			var sc = document.querySelector('.mui-segmented-control');
+			mui.each(document.querySelectorAll('.mui-control-content'),function(index,item){
+				item.style.minHeight = screenHeight- 40 - sc.style.height +'px';
+			});
+			
+			
+			mui('.mui-table-view').on('tap','a',function(){
+				var a = this;
+				var extendOptions = {};
+				pushWebView({
+					webType:'newWebview_Second',
+					id:'event/gongzuotixing-detail-needtem.html',
+					href:'event/gongzuotixing-detail-needtem.html',
+					aniShow:getaniShow(),
+					title:'工作详情',
+					isBars:false,
+					barsIcon:'',
+					extendOptions:extendOptions
+				});
+			});
+		});
+	</script>
+	
+</body>
+</html>

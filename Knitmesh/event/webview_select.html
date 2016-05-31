@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    
+    <style type="text/css">
+    
+    		html {
+    			
+    			padding: 10px;
+    			background-color: #1EB8EA;
+    		}
+    		body {
+    			background-color: red;
+    			padding: 10px;
+    		}
+    		
+    		.mui-content>.mui-table-view:first-child {
+    			
+    			margin-top: 0px;
+    		}
+    		
+    		.headP {
+    			
+    			margin:5px;
+    		}
+    		
+    		.mui-table-view-cell:after {
+    			
+    			left: 0px;
+    		}
+    		
+    </style>
+    
+</head>
+<body>
+	
+	<div class="mui-content" style="">
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				只看自己
+				<div class="mui-switch mui-switch-mini" style="width: 3em;height: 1em;">
+					<div class="mui-switch-handle" style="width: 1em;height: 0.9em;"></div>
+				</div>
+			</li>
+		</ul>
+		<p class="headP">查看部门总情况</p>
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				人事部
+			</li>
+			<li class="mui-table-view-cell">
+				研发部
+			</li>
+			<li class="mui-table-view-cell">
+				营销部
+			</li>
+			<li class="mui-table-view-cell">
+				运营部
+			</li>
+			<li class="mui-table-view-cell">
+				客服部
+			</li>
+			<li class="mui-table-view-cell">
+				财务部
+			</li>
+		</ul>
+		<p class="headP">按人员查看</p>
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				张三
+			</li>
+			<li class="mui-table-view-cell">
+				李四
+			</li>
+			<li class="mui-table-view-cell">
+				王五
+			</li>
+			<li class="mui-table-view-cell">
+				刘二
+			</li>
+			<li class="mui-table-view-cell">
+				王五
+			</li>
+		</ul>
+	</div>
+	
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/own.js" ></script>
+    <script type="text/javascript" charset="UTF-8">
+      	mui.init();
+      	mui.plusReady(function(){
+      		
+      		setSubWebviewBounce('vertical');
+		
+      	});
+    </script>
+	
+</body>
+</html>

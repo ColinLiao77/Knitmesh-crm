@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/own.css"/>
+    <link href="../css/mui.listpicker.css" rel="stylesheet" />
+	<link href="../css/mui.poppicker.css" rel="stylesheet" />
+    
+    	<style type="text/css">
+    		
+    		.mui-content>.mui-table-view:first-child {
+    			margin: 0px;
+    		}
+    		
+    		.mui-table-view .mui-table-view-cell:after {
+    			height: 0px;
+    			left: 0px;
+    		}
+    		
+    		
+    		.mui-table-view .mui-table-view-cell , .mui-table-view .mui-table-view-cell.mui-active {
+    		
+	    		background: white;
+	    	}
+    		
+    		.mui-table-view.maintable-view .mui-table-view-cell {
+    			border-top: 1em solid #fafafa;
+    		}
+    		
+		.mui-badge.mui-badge-inverted {
+		
+			color: black;	
+		}
+		
+		
+		.mui-plus header.mui-bar {
+			display: none!important;
+		}
+		.mui-plus .mui-bar-nav~.mui-content {
+			padding: 0!important;
+		}
+		
+		.mui-plus .plus{
+			display: inline;
+		}
+		
+		.plus{
+			display: none;
+		}
+		
+		#topPopover {
+			position: fixed;
+			top: 16px;
+			right: 6px;
+		}
+		#topPopover .mui-popover-arrow {
+			left: auto;
+			right: 6px;
+		}
+		/*p {
+			text-indent: 22px;
+		}*/
+		span.mui-icon {
+			font-size: 14px;
+			color: #007aff;
+			margin-left: -15px;
+			padding-right: 10px;
+		}
+		.mui-popover {
+			height: 250px;
+			width: 200px;
+			text-align: center;
+		}
+		/*.mui-content {
+			padding: 10px;
+		}*/
+		
+    	</style>
+    
+</head>
+<body>
+	
+	
+	<div class="mui-content">
+		<ul class="mui-table-view maintable-view">
+			<li class="mui-table-view-cell noText qingJiaClass">
+				<a class="mui-navigate-right">
+					<p>请假类型</p>
+					<span class="mui-badge mui-badge-inverted">年假</span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell noText qingJiaStartTime">
+				<a class="mui-navigate-right">
+					<p>开始时间</p>
+					<span class="mui-badge mui-badge-inverted">选择时间</span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell noText qingJiaEndTime">
+				<a class="mui-navigate-right">
+					<p>结束时间</p>
+					<span class="mui-badge mui-badge-inverted">选择时间</span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell noText qingJiaDay">
+				<!--<a class="mui-navigate-right">-->
+					<p>请假时长</p>
+					<span class="mui-badge mui-badge-inverted"></span>
+				<!--</a>-->
+			</li>
+			<!--<li class="mui-table-view-cell" style="background-color: #fafafa; border: 0px;">
+				<p>请假是由</p>
+			</li>-->
+			<li class="mui-table-view-cell text" >
+				<p>请假事由：</p>
+				<textarea rows="2" cols="20" style="margin: 0px; border: 0px; font-size: 0.8em;"></textarea>
+			</li>
+			<li class="mui-table-view-cell noText text">
+				<p>审批人</p>
+				<span class="mui-badge mui-badge-inverted mui-icon mui-icon-plus"></span>
+			</li>
+		</ul>
+		
+		<div class="mui-button-row" style="margin: 10px 25px;">
+			<button type="button" class="mui-btn mui-btn-block mui-btn-red" style="padding: 8px;border-radius: 6px;">发送</button>
+		</div>
+	</div>
+	
+	
+	<!--右上角弹出菜单-->
+	<!--<div id="topPopover" class="mui-popover">
+		<div class="mui-popover-arrow"></div>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell"><a href="#">事假</a>
+					</li>
+					<li class="mui-table-view-cell"><a href="#">婚假</a>
+					</li>
+					<li class="mui-table-view-cell"><a href="#">病假</a>
+					</li>
+					<li class="mui-table-view-cell"><a href="#">事假</a>
+					</li>
+					<li class="mui-table-view-cell"><a href="#">事假</a>
+					</li>
+					<li class="mui-table-view-cell"><a href="#">事假</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>-->
+	
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/own.js" ></script>
+	<script src="../js/mui.listpicker.js"></script>
+	<script src="../js/mui.poppicker.js"></script>
+	<script type="text/javascript" src="../js/wl_Calendar.js" ></script>
+	
+	<script type="text/javascript" charset="UTF-8">
+	
+		var startTime;
+		var endTime;
+      	mui.init();
+      	mui.plusReady(function(){
+      		setSubWebviewBounce('none');
+      		
+      		window.addEventListener('selectTime',function(event){
+      				
+      			if(event.detail.state == 'start') {
+      				
+      				startTime = new Date(event.detail.time);
+      				document.getElementsByClassName('qingJiaStartTime')[0].getElementsByTagName('span')[0].innerHTML = dateToString(startTime);
+      				
+      			}else if(event.detail.state == 'end') {
+      				
+      				endTime = new Date(event.detail.time);
+      				document.getElementsByClassName('qingJiaEndTime')[0].getElementsByTagName('span')[0].innerHTML = dateToString(endTime);
+      			}
+      			
+      			if (startTime && endTime) {
+      			
+      				var str = getDteDiff(startTime,endTime);
+      				if (str == '') {
+      				
+      					document.getElementsByClassName('qingJiaDay')[0].getElementsByTagName('span')[0].innerHTML = '结束时间应该大于开始时间！';
+      				}else {
+      					
+      					document.getElementsByClassName('qingJiaDay')[0].getElementsByTagName('span')[0].innerHTML = str;
+      				}
+      			}
+      		});
+      		
+      		
+      		
+      			
+      		mui('.mui-table-view').on('tap','.noText',function(){
+      			
+      			
+      			if (this.classList.contains('qingJiaClass')) {
+      				
+      				setQingJiaPicker();
+      				
+      			}else if(this.classList.contains('qingJiaStartTime') || this.classList.contains('qingJiaEndTime')) {
+      				
+      			
+      				var state = '';
+      				var time;
+      				var extendOptions = {};
+      				
+      				if (this.classList.contains('qingJiaStartTime')) {
+      				
+      					state = 'start';
+      					if (startTime) {
+      						
+      						time = startTime.toString(); 
+      					}
+      					
+      				}else if (this.classList.contains('qingJiaEndTime')) {
+      					state = 'end';
+      					if (endTime) {
+      						
+      						time = endTime.toString();
+      					}
+      				}
+      				
+      				if(state != '') {
+      					
+      					extendOptions['state'] = state;
+      				}
+      				if(time != '') {
+      					
+      					extendOptions['time'] = time;
+      				}
+      				
+					pushWebView({
+						webType:'newWebview_Second',
+						id:'work/clander-new-needtem.html',
+						href:'work/clander-new-needtem.html',
+						aniShow:getaniShow(),
+						title:'选择时间',
+						isBars:false,
+						barsIcon:'',
+						extendOptions:extendOptions
+					});
+      			}
+      			
+      			
+      		});
+      		
+//    		mui('.mui-scroll-wrapper').scroll();
+//			mui('body').on('shown', '.mui-popover', function(e) {
+//				//console.log('shown', e.detail.id);//detail为当前popover元素
+//			});
+//			mui('body').on('hidden', '.mui-popover', function(e) {
+//				//console.log('hidden', e.detail.id);//detail为当前popover元素
+//			});
+			
+
+      	});
+      	
+      	
+      	function setQingJiaPicker() {
+      		
+      		var picker = new mui.PopPicker({
+      			layer:1
+      		});
+      		
+      		var pickerArray = new Array();
+      		for (var i = 0; i < 10; i++) {
+      			
+      			pickerArray.push({
+      				value:i,
+      				text:'类型'+i
+      			})
+      		}
+      		
+      		picker.setData(pickerArray);
+      		
+      		picker.show(function(items){
+      			
+      			var qingJiaSpan = document.getElementsByClassName('qingJiaClass')[0].getElementsByTagName('span')[0];
+      			qingJiaSpan.innerHTML = items[0]['text'];
+      		});
+      	}
+      	
+      	function getDteDiff(startDate,endDate){
+      		
+      		var str = '';
+      		var dateInt = endDate.getTime() - startDate.getTime();
+      		
+      		console.log(startDate,endDate,dateInt);
+      		
+      		var days = Math.floor(dateInt / (24 * 60 * 60 * 1000));
+      		
+      		var leaveDay = dateInt % (24 * 60 * 60 * 1000);
+      		
+      		var hours = Math.floor(leaveDay / (60 * 60 * 1000));
+      		
+      		var leaveHour = leaveDay % (60 * 60 * 1000);
+      		
+      		var minutes = Math.floor(leaveHour / (60 * 1000));
+      		
+			var leaveMin = leaveHour % (60 * 1000);
+			
+			var seconds = Math.round(leaveMin / 1000);
+			
+			if (days > 0) {
+				
+				str += days + '天';
+			}
+			if (hours > 0) {
+				
+				str += hours + '小时';
+			}
+			if (minutes > 0) {
+				
+				str += minutes + '分钟';
+			}
+			
+			return str;
+      	}
+    </script>
+    
+</body>
+</html>

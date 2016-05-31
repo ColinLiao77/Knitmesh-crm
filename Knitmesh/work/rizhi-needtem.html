@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>日志</title>
+    <link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/own.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+    <style type="text/css">
+    		.mui-table-view:before {
+    			height: 0px;
+    		}
+    		.mui-content>.mui-table-view:first-child {
+    			margin: 0px;
+    		}
+    		
+    		.mui-table-view .mui-table-view-cell:after {
+    			height: 1px;
+    			left: 0px;
+    		}
+    		.mui-table-view .mui-table-view-cell.text.mui-active {
+    			background-color: white;
+    		}
+    		
+    		.mui-table-view.maintable-view .mui-table-view-cell {
+    			border-top: 1em solid #fafafa;
+    		}
+    		
+		.mui-badge.mui-badge-inverted {
+		
+			color: black;	
+		}
+		
+		
+		.mui-plus header.mui-bar {
+			display: none!important;
+		}
+		.mui-plus .mui-bar-nav~.mui-content {
+			padding: 0!important;
+		}
+		
+		.mui-plus .plus{
+			display: inline;
+		}
+		
+		.plus{
+			display: none;
+		}
+		
+		#topPopover {
+			position: fixed;
+			top: 16px;
+			right: 6px;
+		}
+		#topPopover .mui-popover-arrow {
+			left: auto;
+			right: 6px;
+		}
+		
+		span.mui-icon {
+			font-size: 14px;
+			color: #007aff;
+			margin-left: -15px;
+			padding-right: 10px;
+		}
+		.mui-popover {
+			height: 190px;
+			text-align: center;
+			width: 200px;
+		}
+    </style>
+</head>
+<body>
+	<div class="mui-content">
+		<ul class="mui-table-view maintable-view">
+			<li class="mui-table-view-cell">
+				<a href="#topPopover" class="mui-navigate-right">
+					<p>类型</p>
+					<span id="rizhitype" class="mui-badge mui-badge-inverted">日志</span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell text" >
+				<p id="rizhcontenttype">日志内容：</p>
+				<textarea rows="2" cols="20" style="margin: 0px; border: 0px; font-size: 0.8em;"></textarea>
+			</li>
+			<li class="mui-table-view-cell text" >
+				<p id="jihuacontenttype">明日计划：</p>
+				<textarea rows="2" cols="20" style="margin: 0px; border: 0px; font-size: 0.8em;"></textarea>
+			</li>
+		</ul>
+		
+		<div class="mui-button-row" style="margin: 10px 25px;">
+			<button type="button" class="mui-btn mui-btn-block mui-btn-red" style="padding: 8px;border-radius: 6px;">发送</button>
+		</div>
+	</div>
+	
+	<!--右上角弹出菜单-->
+	<div id="topPopover" class="mui-popover">
+		<div class="mui-popover-arrow"></div>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<ul class="mui-table-view choose">
+					<li class="mui-table-view-cell"><a href="index1">日志</a>
+					</li>
+					<li class="mui-table-view-cell"><a href="index2">周总结</a>
+					</li>
+					<li class="mui-table-view-cell"><a href="index3">月总结</a>
+					</li>
+					<li class="mui-table-view-cell"><a href="index4">年总结</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<script src="../js/mui.min.js" charset="UTF-8"></script>
+	<script src="../js/own.js" charset="UTF-8"></script>
+	<script type="text/javascript" charset="UTF-8">
+		mui.init({
+			swipeBack:true
+		});
+		
+		var type = 'index1';
+		var rizhitype;
+		var rizhicontenttype;
+		var jihuacontenttype;
+		
+		mui.plusReady(function(){
+			setSubWebviewBounce('none');
+			rizhitype = document.getElementById('rizhitype');
+			rizhicontenttype = document.getElementById('rizhcontenttype');
+			jihuacontenttype =  document.getElementById('jihuacontenttype');
+			
+			mui('.mui-scroll-wrapper').scroll();
+//			mui('body').on('shown', '.mui-popover', function(e) {
+//				console.log('shown', e.detail.id);//detail为当前popover元素
+//			});
+//			mui('body').on('hidden', '.mui-popover', function(e) {
+//				console.log('hidden', e.detail.id);//detail为当前popover元素
+//			});
+			
+			mui('.mui-table-view.choose').on('tap','a',function(){
+				mui('.mui-popover').popover('toggle');
+				rizhitype.innerText =  this.innerText;
+				type = this.getAttribute('href');
+				rizhicontenttype.innerText = this.innerText  + '内容：';
+				var href = this.getAttribute('href');
+				if (href == 'index1') {
+					jihuacontenttype.innerText ='明日计划：';
+				} else if (href == 'index2'){
+					jihuacontenttype.innerText ='下周计划：';
+				} else if (href == 'index3'){
+					jihuacontenttype.innerText ='下月计划：';
+				} else if (href == 'index4'){
+					jihuacontenttype.innerText ='明年计划：';
+				}
+			});
+			
+		});
+	</script>
+</body>
+</html>

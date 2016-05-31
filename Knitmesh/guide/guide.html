@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>非父子页面，启动页面，一般为产品介绍页面</title>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/own.css"/>
+</head>
+<body>
+	
+	<div class="mui-content">
+		<p style="font-size: 2em; color: black; text-align: center; padding-top: 5em;">我只是一个导航啊</p>
+		<div class="mui-button-row" style="margin: 0.5em;">
+			<button class="mui-btn mui-btn-primary mui-btn-block" style="padding: 0.5em;">点我关闭</button>
+		</div>
+	</div>
+	
+	<script src="../js/mui.min.js" charset="UTF-8"></script>
+	<script src="../js/own.js" charset="UTF-8"></script>
+	<script type="text/javascript" charset="UTF-8">
+		mui.init({
+			swipeBack:true
+		});
+		
+		mui.plusReady(function(){
+			
+			
+			
+			mui('.mui-button-row').on('tap','.mui-btn',function(){
+				plus.navigator.setFullscreen(false);
+				plus.storage.setItem("lauchFlag", "true");
+				plus.webview.currentWebview().close();
+				
+				//点击完成设置一些初始化的数据
+				//第一次设置全部接收消息
+				plus.storage.setItem('get-message','true');
+				plus.storage.setItem('get-push','true');
+				plus.storage.setItem('get-voice','true');
+				plus.storage.setItem('get-shark','true');
+				plus.storage.setItem('get-gongzuoquanmsg','true');
+				
+			});
+		});
+	</script>
+
+
+</body>
+</html>
